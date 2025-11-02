@@ -12,12 +12,17 @@
             min-height: 100vh;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 30px 20px;
+            padding: max(30px, env(safe-area-inset-top)) 
+                     max(20px, env(safe-area-inset-right)) 
+                     max(30px, env(safe-area-inset-bottom)) 
+                     max(20px, env(safe-area-inset-left));
+            overflow-x: hidden;
         }
         
         .main-container {
             max-width: 1200px;
             margin: 0 auto;
+            overflow-x: hidden;
         }
         
         .section-card {
@@ -247,15 +252,15 @@
             pointer-events: auto;
         }
         
-        /* Flex container for side-by-side sections */
+        /* Grid container for side-by-side sections */
         .flex-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
         
         .flex-6 {
-            flex: 1;
             min-width: 0;
         }
         
@@ -263,33 +268,73 @@
             margin-bottom: 0;
         }
         
-        @media (max-width: 992px) {
+        /* Mobile: Single column, Intro first (row 1), Game last (row 2) */
+        .intro-section-wrapper {
+            grid-area: 1 / 1;
+        }
+        
+        .game-section-wrapper {
+            grid-area: 2 / 1;
+        }
+        
+        /* Desktop: Two columns side by side (800px and above) */
+        @media (min-width: 992px) {
             .flex-row {
-                flex-direction: column;
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Intro left (row 1, column 1), Game right (row 1, column 2) */
+            .intro-section-wrapper {
+                grid-area: 1 / 1;
+            }
+            
+            .game-section-wrapper {
+                grid-area: 1 / 2;
             }
         }
         
         @media (max-width: 768px) {
             body {
-                padding: 20px 10px;
+                padding: max(20px, env(safe-area-inset-top)) 
+                         max(10px, env(safe-area-inset-right)) 
+                         max(20px, env(safe-area-inset-bottom)) 
+                         max(10px, env(safe-area-inset-left));
             }
             
             .section-card {
-                padding: 25px;
+                padding: 20px;
+                border-radius: 15px;
             }
             
             .hero-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                line-height: 1.2;
             }
             
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
+                line-height: 1.4;
             }
             
             .feature-list li {
-                font-size: 1rem;
-                padding: 12px 15px;
+                font-size: 0.95rem;
+                padding: 10px 12px;
+                margin-bottom: 8px;
+            }
+            
+            .feature-list li i {
+                font-size: 0.9rem;
+                width: 18px;
+                margin-right: 8px;
+            }
+            
+            .loading-placeholder i {
+                font-size: 3rem;
+            }
+            
+            .typeform-container {
+                height: 500px;
+                min-height: 400px;
             }
             
             #unity-container {
@@ -300,6 +345,58 @@
             #unity-canvas {
                 width: 100%;
                 height: auto;
+            }
+            
+            #unity-fullscreen-button {
+                width: 48px;
+                height: 48px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: max(15px, env(safe-area-inset-top)) 
+                         max(8px, env(safe-area-inset-right)) 
+                         max(15px, env(safe-area-inset-bottom)) 
+                         max(8px, env(safe-area-inset-left));
+            }
+            
+            .section-card {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .hero-title {
+                font-size: 1.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .feature-list li strong {
+                display: block;
+                margin-bottom: 4px;
+            }
+            
+            .highlight-box {
+                padding: 15px;
+            }
+            
+            .highlight-box h3 {
+                font-size: 1.2rem;
+            }
+            
+            .highlight-box p {
+                font-size: 0.9rem;
+            }
+            
+            .typeform-container {
+                height: 450px;
+            }
+            
+            #unity-container {
+                min-height: 250px;
             }
         }
     </style>
@@ -326,7 +423,7 @@
         <!-- Side by Side Sections -->
         <div class="flex-row">
             <!-- Introduction Section -->
-            <div class="section-card intro-section flex-6">
+            <div class="section-card intro-section flex-6 intro-section-wrapper">
                 <h2><i class="fas fa-graduation-cap"></i> What We Are Building</h2>
                 
                 <ul class="feature-list">
@@ -364,7 +461,7 @@
             </div>
             
             <!-- Unity Game Section -->
-            <div class="section-card flex-6">
+            <div class="section-card flex-6 game-section-wrapper">
                 <div class="game-header">
                     <h2 class="game-title"><i class="fas fa-gamepad"></i> Learn Articles Through Gaming</h2>
                     <p class="game-subtitle">Navigate through constitutional articles and government schemes in this fun, educational game</p>
@@ -423,6 +520,17 @@
         
         function loadUnityGame() {
             if (unityLoaded) return;
+            
+            // Mobile resource warning
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                const isMobile = window.matchMedia("(max-width: 768px)").matches;
+                if (isMobile) {
+                    if (!confirm("This game may use significant resources on mobile devices. Continue loading?")) {
+                        return;
+                    }
+                }
+            }
+            
             unityLoaded = true;
             
             const placeholder = document.querySelector('.loading-placeholder');
@@ -512,6 +620,30 @@
             // Also allow manual load on click
             unityContainer.addEventListener('click', loadUnityGame, { once: true });
         }
+        
+        // Handle orientation changes for Unity game
+        window.addEventListener('orientationchange', function() {
+            if (unityInstance) {
+                const canvas = document.querySelector("#unity-canvas");
+                setTimeout(() => {
+                    if (canvas) {
+                        canvas.style.width = "100%";
+                        canvas.style.height = "auto";
+                    }
+                }, 100);
+            }
+        });
+        
+        // Handle window resize for responsive canvas
+        window.addEventListener('resize', function() {
+            if (unityInstance) {
+                const canvas = document.querySelector("#unity-canvas");
+                if (canvas) {
+                    canvas.style.width = "100%";
+                    canvas.style.height = "auto";
+                }
+            }
+        });
     </script>
 </body>
 </html>
