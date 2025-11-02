@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Learning Platform - Survey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px 20px;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        
+        .intro-section {
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .intro-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            font-size: 1rem;
+        }
+        
+        .feature-list li i {
+            color: #667eea;
+            margin-right: 12px;
+            width: 20px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0 0 0;
+        }
+        
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box p {
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.95;
+        }
+        
+        /* Unity Game Styles */
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .game-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        #unity-container {
+            position: relative;
+            margin: 0 auto;
+            max-width: 100%;
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #unity-canvas {
+            background: #231F20;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+        
+        #unity-loading-bar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            text-align: center;
+        }
+        
+        #unity-logo {
+            width: 154px;
+            height: 130px;
+            background: url('TemplateData/unity-logo-dark.png') no-repeat center;
+            margin: 0 auto;
+        }
+        
+        #unity-progress-bar-empty {
+            width: 141px;
+            height: 18px;
+            margin-top: 10px;
+            background: url('TemplateData/progress-bar-empty-dark.png') no-repeat center;
+        }
+        
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 18px;
+            background: url('TemplateData/progress-bar-full-dark.png') no-repeat center;
+        }
+        
+        #unity-warning {
+            position: absolute;
+            left: 50%;
+            top: 5%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px;
+            display: none;
+            z-index: 10;
+        }
+        
+        #unity-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #unity-fullscreen-button {
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            background: url('TemplateData/fullscreen-button.png') no-repeat center;
+            background-size: contain;
+            transition: opacity 0.3s;
+        }
+        
+        #unity-fullscreen-button:hover {
+            opacity: 0.7;
+        }
+        
+        #unity-build-title {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .loading-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .loading-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .loading-placeholder p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        /* Typeform Section */
+        .survey-section {
+            text-align: center;
+        }
+        
+        .survey-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .typeform-container {
+            width: 100%;
+            height: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .typeform-container iframe {
+            pointer-events: auto;
+        }
+        
+        /* Flex container for side-by-side sections */
+        .flex-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .flex-6 {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .flex-row .section-card {
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 992px) {
+            .flex-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .section-card {
+                padding: 25px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .feature-list li {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+            
+            #unity-container {
+                min-height: 300px;
+                max-width: 350px;
+            }
+            
+            #unity-canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Hero Header -->
+        <div class="section-card">
+            <h1 class="hero-title">One Stop Solution for UPSC Aspirants</h1>
+            <p class="hero-subtitle">Transform your UPSC preparation with our comprehensive platform</p>
+        </div>
+        
+        <!-- Survey/Typeform Section -->
+        <div class="section-card survey-section">
+            <h2><i class="fas fa-clipboard-list"></i> Help Us Understand You Better</h2>
+            <p style="color: #666; margin-bottom: 20px;">Please take a moment to fill out this questionnaire</p>
+            
+            <!-- Typeform Embed -->
+            <div class="typeform-container">
+                <iframe src="https://form.typeform.com/to/J8XERW8w?typeform-embed=embed-widget" style="width: 100%; height: 100%; border: none; border-radius: 10px;" scrolling="no"></iframe>
+            </div>
+        </div>
+        
+        <!-- Side by Side Sections -->
+        <div class="flex-row">
+            <!-- Introduction Section -->
+            <div class="section-card intro-section flex-6">
+                <h2><i class="fas fa-graduation-cap"></i> What We Offer</h2>
+                
+                <ul class="feature-list">
+                    <li>
+                        <i class="fas fa-newspaper"></i>
+                        <strong>News Notes from Various Sources</strong> - Stay updated with curated content from PTI, IE, PIB, Hindustan Times, and more
+                    </li>
+                    <li>
+                        <i class="fas fa-gamepad"></i>
+                        <strong>Interactive Article Memorization Game</strong> - Learn and memorize constitutional articles through engaging gameplay
+                    </li>
+                    <li>
+                        <i class="fas fa-landmark"></i>
+                        <strong>All Government Schemes Covered</strong> - Comprehensive coverage of all major government initiatives and policies
+                    </li>
+                    <li>
+                        <i class="fas fa-book-open"></i>
+                        <strong>Notes of All Government Magazines</strong> - Access detailed notes from Yojana, Kurukshetra, and other important publications
+                    </li>
+                    <li>
+                        <i class="fas fa-clipboard-check"></i>
+                        <strong>Evaluate Your Answers</strong> - Get detailed insights and feedback on your answer writing with AI-powered evaluation
+                    </li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3><i class="fas fa-star"></i> Premium Benefits</h3>
+                    <p><strong>No Ads</strong> • <strong>Clean Interface</strong> • <strong>Focused Learning Experience</strong></p>
+                </div>
+            </div>
+            
+            <!-- Unity Game Section -->
+            <div class="section-card flex-6">
+                <div class="game-header">
+                    <h2 class="game-title"><i class="fas fa-gamepad"></i> Learn Articles Through Gaming</h2>
+                    <p class="game-subtitle">Navigate through constitutional articles and government schemes in this fun, educational game</p>
+                </div>
+                
+                <div id="unity-container">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                        <p>Click here to load the game...</p>
+                    </div>
+                    <canvas id="unity-canvas" width="500" height="350" tabindex="-1" style="display: none;"></canvas>
+                    <div id="unity-loading-bar">
+                        <div id="unity-logo"></div>
+                        <div id="unity-progress-bar-empty">
+                            <div id="unity-progress-bar-full"></div>
+                        </div>
+                    </div>
+                    <div id="unity-warning"></div>
+                </div>
+                <div id="unity-footer" style="display: none;">
+                    <div id="unity-build-title">Article Memory Game</div>
+                    <div id="unity-fullscreen-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Unity WebGL Loader -->
+    <script>
+        let unityLoaded = false;
+        let unityInstance = null;
+        
+        function unityShowBanner(msg, type) {
+            const warningBanner = document.querySelector("#unity-warning");
+            function updateBannerVisibility() {
+                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+            }
+            const div = document.createElement('div');
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+            if (type == 'error') {
+                div.style = 'background: red; color: white; padding: 10px; border-radius: 5px;';
+            } else {
+                if (type == 'warning') {
+                    div.style = 'background: yellow; padding: 10px; border-radius: 5px;';
+                }
+                setTimeout(function() {
+                    warningBanner.removeChild(div);
+                    updateBannerVisibility();
+                }, 5000);
+            }
+            updateBannerVisibility();
+        }
+        
+        function loadUnityGame() {
+            if (unityLoaded) return;
+            unityLoaded = true;
+            
+            const placeholder = document.querySelector('.loading-placeholder');
+            const canvas = document.querySelector("#unity-canvas");
+            const footer = document.querySelector("#unity-footer");
+            
+            if (placeholder) {
+                placeholder.innerHTML = '<i class="fas fa-spinner fa-spin"></i><p>Loading game...</p>';
+            }
+            
+            const buildUrl = "Build";
+            const loaderUrl = buildUrl + "/UnityGame.loader.js";
+            const config = {
+                arguments: [],
+                dataUrl: buildUrl + "/UnityGame.data.br",
+                frameworkUrl: buildUrl + "/UnityGame.framework.js.br",
+                codeUrl: buildUrl + "/UnityGame.wasm.br",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "Mozembo",
+                productName: "ArticleGame",
+                productVersion: "1.0",
+                showBanner: unityShowBanner,
+            };
+
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                canvas.style.width = "100%";
+                canvas.style.height = "auto";
+            } else {
+                canvas.style.width = "100%";
+                canvas.style.height = "auto";
+            }
+
+            document.querySelector("#unity-loading-bar").style.display = "block";
+
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onerror = function() {
+                if (placeholder) {
+                    placeholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i><p style="color: #ff6b6b;">Game files not found. Please ensure Build/ folder is present.</p>';
+                }
+                unityLoaded = false;
+            };
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    const progressBar = document.querySelector("#unity-progress-bar-full");
+                    if (progressBar) {
+                        progressBar.style.width = 100 * progress + "%";
+                    }
+                }).then((instance) => {
+                    unityInstance = instance;
+                    document.querySelector("#unity-loading-bar").style.display = "none";
+                    if (placeholder) placeholder.style.display = "none";
+                    canvas.style.display = "block";
+                    footer.style.display = "flex";
+                    
+                    document.querySelector("#unity-fullscreen-button").onclick = () => {
+                        unityInstance.SetFullscreen(1);
+                    };
+                }).catch((message) => {
+                    console.error("Unity load error:", message);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i><p style="color: #ff6b6b;">Failed to load game: ' + message + '</p>';
+                    }
+                    unityLoaded = false;
+                });
+            };
+            document.body.appendChild(script);
+        }
+        
+        // Load game on container click or scroll into view
+        const gameObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !unityLoaded) {
+                    console.log("Game container visible, loading Unity...");
+                    loadUnityGame();
+                    gameObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+
+        const unityContainer = document.querySelector('#unity-container');
+        if (unityContainer) {
+            gameObserver.observe(unityContainer);
+            // Also allow manual load on click
+            unityContainer.addEventListener('click', loadUnityGame, { once: true });
+        }
+    </script>
+</body>
+</html>
