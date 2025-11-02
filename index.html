@@ -521,16 +521,6 @@
         function loadUnityGame() {
             if (unityLoaded) return;
             
-            // Mobile resource warning
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                const isMobile = window.matchMedia("(max-width: 768px)").matches;
-                if (isMobile) {
-                    if (!confirm("This game may use significant resources on mobile devices. Continue loading?")) {
-                        return;
-                    }
-                }
-            }
-            
             unityLoaded = true;
             
             const placeholder = document.querySelector('.loading-placeholder');
