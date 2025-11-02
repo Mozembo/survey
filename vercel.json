@@ -27,6 +27,19 @@
       ]
     },
     {
+      "source": "/Build/(.*)\\.framework\\.js\\.br",
+      "headers": [
+        {
+          "key": "Content-Encoding",
+          "value": "br"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
       "source": "/Build/(.*)\\.js\\.br",
       "headers": [
         {
@@ -47,40 +60,6 @@
           "value": "application/javascript"
         }
       ]
-    }
-  ],
-  "routes": [
-    {
-      "src": "/Build/(.*)\\.data\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/octet-stream"
-      },
-      "dest": "/Build/$1.data.br"
-    },
-    {
-      "src": "/Build/(.*)\\.wasm\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/wasm"
-      },
-      "dest": "/Build/$1.wasm.br"
-    },
-    {
-      "src": "/Build/(.*)\\.framework\\.js\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/javascript"
-      },
-      "dest": "/Build/$1.framework.js.br"
-    },
-    {
-      "src": "/Build/(.*)\\.js\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/javascript"
-      },
-      "dest": "/Build/$1.js.br"
     }
   ]
 }
