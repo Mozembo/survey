@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPSC Learning Platform - Survey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,10 +12,10 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: max(30px, env(safe-area-inset-top)) 
+            font-family: 'Open Sans', sans-serif;
+            padding: max(15px, env(safe-area-inset-top)) 
                      max(20px, env(safe-area-inset-right)) 
-                     max(30px, env(safe-area-inset-bottom)) 
+                     max(15px, env(safe-area-inset-bottom)) 
                      max(20px, env(safe-area-inset-left));
             overflow-x: hidden;
         }
@@ -30,7 +31,7 @@
             border-radius: 20px;
             padding: 35px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         
         .hero-title {
@@ -77,12 +78,6 @@
             border-radius: 10px;
             border-left: 4px solid #667eea;
             font-size: 1rem;
-        }
-        
-        .feature-list li i {
-            color: #667eea;
-            margin-right: 12px;
-            width: 20px;
         }
         
         .highlight-box {
@@ -216,12 +211,6 @@
             color: #999;
         }
         
-        .loading-placeholder i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-        
         .loading-placeholder p {
             font-size: 1.1rem;
             margin: 0;
@@ -257,7 +246,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
         
         .flex-6 {
@@ -320,16 +309,6 @@
                 font-size: 0.95rem;
                 padding: 10px 12px;
                 margin-bottom: 8px;
-            }
-            
-            .feature-list li i {
-                font-size: 0.9rem;
-                width: 18px;
-                margin-right: 8px;
-            }
-            
-            .loading-placeholder i {
-                font-size: 3rem;
             }
             
             .typeform-container {
@@ -411,7 +390,7 @@
         
         <!-- Survey/Typeform Section -->
         <div class="section-card survey-section">
-            <h2><i class="fas fa-clipboard-list"></i> Help Us Understand You Better</h2>
+            <h2>Help Us Understand You Better</h2>
             <p style="color: #666; margin-bottom: 20px;">Please take a moment to fill out this questionnaire</p>
             
             <!-- Typeform Embed -->
@@ -424,32 +403,26 @@
         <div class="flex-row">
             <!-- Introduction Section -->
             <div class="section-card intro-section flex-6 intro-section-wrapper">
-                <h2><i class="fas fa-graduation-cap"></i> What We Are Building</h2>
+                <h2>What We Are Building</h2>
                 
                 <ul class="feature-list">
                     <li>
-                        <i class="fas fa-newspaper"></i>
                         <strong style="font-size: 1.1em;">News Notes from Various Sources</strong> - Stay updated with curated content from The Hindu, The Indian Express, PIB and more
                     </li>
                     <li>
-                        <i class="fas fa-clipboard-check"></i>
                         <strong style="font-size: 1.1em;">Evaluate Your Answers</strong> - Mains evaluation powered by custom-trained State-of-the-Art vision models — outperforming human graders.
                     </li>
                     <li>
-                        <i class="fas fa-clipboard-check"></i>
                         <strong style="font-size: 1.1em;">Improve Writing Speed</strong> - Writing speed improvement through custom-trained State-of-the-Art models.
                     </li>
                     <li>
-                        <i class="fas fa-gamepad"></i>
                         <strong style="font-size: 1.1em;">Interactive Memorization Games</strong> - Learn and memorize through engaging gameplays
                     </li>
                     <li>
-                        <i class="fas fa-book-open"></i>
                         <strong style="font-size: 1.1em;">Notes of All USPC related Government Magazines</strong> - Access detailed notes from Yojana, Kurukshetra, India Yearbook and other important publications
                     </li>
 
                     <li>
-                        <i class="fas fa-clipboard-check"></i>
                         <strong style="font-size: 1.1em;">Interview Practice Using VR technology</strong> - Hone your skills with virtual reality mock interviews and receive AI-powered feedback to boost your confidence.
                     </li>
                 </ul>
@@ -463,13 +436,12 @@
             <!-- Unity Game Section -->
             <div class="section-card flex-6 game-section-wrapper">
                 <div class="game-header">
-                    <h2 class="game-title"><i class="fas fa-gamepad"></i> Learn Articles Through Gaming</h2>
+                    <h2 class="game-title">Learn Articles Through Gaming</h2>
                     <p class="game-subtitle">Navigate through constitutional articles and government schemes in this fun, educational game</p>
                 </div>
                 
                 <div id="unity-container">
                     <div class="loading-placeholder">
-                        <i class="fas fa-gamepad"></i>
                         <p>Click here to load the game...</p>
                     </div>
                     <canvas id="unity-canvas" width="500" height="350" tabindex="-1" style="display: none;"></canvas>
@@ -528,7 +500,7 @@
             const footer = document.querySelector("#unity-footer");
             
             if (placeholder) {
-                placeholder.innerHTML = '<i class="fas fa-spinner fa-spin"></i><p>Loading game...</p>';
+                placeholder.innerHTML = '<p>Loading game...</p>';
             }
             
             const buildUrl = "Build";
@@ -559,7 +531,7 @@
             script.src = loaderUrl;
             script.onerror = function() {
                 if (placeholder) {
-                    placeholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i><p style="color: #ff6b6b;">Game files not found. Please ensure Build/ folder is present.</p>';
+                    placeholder.innerHTML = '<p style="color: #ff6b6b;">Game files not found. Please ensure Build/ folder is present.</p>';
                 }
                 unityLoaded = false;
             };
@@ -582,7 +554,7 @@
                 }).catch((message) => {
                     console.error("Unity load error:", message);
                     if (placeholder) {
-                        placeholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i><p style="color: #ff6b6b;">Failed to load game: ' + message + '</p>';
+                        placeholder.innerHTML = '<p style="color: #ff6b6b;">Failed to load game: ' + message + '</p>';
                     }
                     unityLoaded = false;
                 });
