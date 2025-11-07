@@ -252,6 +252,15 @@
             margin-bottom: 0;
         }
         
+        .game-section-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-section-wrapper > div:last-child {
+            margin-top: auto;
+        }
+        
         /* Mobile: Single column, Intro first (row 1), Game last (row 2) */
         .intro-section-wrapper {
             grid-area: 1 / 1;
@@ -389,8 +398,8 @@
         
         <!-- Survey/Typeform Section -->
         <div class="section-card survey-section">
-            <h2>Help Us Understand You Better</h2>
-            <p style="color: #666; margin-bottom: 20px;">Fill out this questionnaire to get beta testing access.</p>
+            <h2>Fill out this questionnaire to get beta testing access</h2>
+            <p style="color: #666; margin-bottom: 20px;">Help Us Understand You Better</p>
             
             <!-- Typeform Embed -->
             <div class="typeform-container">
@@ -460,7 +469,7 @@
                 </div>
                 
                 <!-- Business Address -->
-                <div style="margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-radius: 10px; text-align: left;">
+                <div style="padding: 20px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-radius: 10px; text-align: left;">
                     <p style="margin: 0; color: #667eea; font-weight: 600; font-size: 0.95rem; line-height: 1.6;">
                         <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>
                         271, 6th Main Rd, HAL 2nd Stage, Motappapalya,<br>
